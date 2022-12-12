@@ -1,6 +1,11 @@
 const nodemailer = require("nodemailer");
 const fs = require('fs')
 
+const target = "<email@target>"
+const from = "<email@from>";
+const user = "<email@user>";
+const password = "password";
+
 async function main() {
     let testAccount = await nodemailer.createTestAccount();
     let transporter = nodemailer.createTransport({
@@ -8,8 +13,8 @@ async function main() {
         port: 465,
         secure: true, // true for 465, false for other ports
         auth: {
-            user: "<user@email>", // generated ethereal user
-            pass: "<password>", // generated ethereal password
+            user: user, // generated ethereal user
+            pass: password, // generated ethereal password
         },
     });
 
@@ -19,8 +24,8 @@ async function main() {
     let count = 0;
     for (const payload of file) {
         const ob = {
-            from: '<email>', // sender address
-            to: "<target>", // list of receivers
+            from: from, // sender address
+            to: target, // list of receivers
             subject: `test payload ${count}`, // Subject line
             html: payload, // html body
         }
@@ -36,6 +41,7 @@ async function main() {
 
 
 }
+
 
 
 main().catch(console.error);
